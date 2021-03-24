@@ -1,6 +1,7 @@
 package com.hzlei.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,12 +17,12 @@ import java.util.Map;
 @RequestMapping("/api/")
 public class ApiController {
 
-    @GetMapping("temp")
-    public Map<String, Object> temp() {
+    @GetMapping("temp/{data}")
+    public Map<String, Object> temp(@PathVariable String data) {
         Map<String, Object> result = new HashMap<>();
         result.put("code", 200);
         result.put("msg", "操作成功");
-        result.put("data", 1);
+        result.put("data", data);
         return result;
     }
 }
