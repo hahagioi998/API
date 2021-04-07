@@ -8,3 +8,5 @@ dist
 .env.*
 .target
 *.iml
+/api_log.txt
+/.idea/
