@@ -4,7 +4,8 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.base.Splitter;
 import com.hzlei.dto.MiSportDto;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
 import java.io.*;
@@ -20,8 +21,8 @@ import java.util.Map;
  * @date 2021/04/07 11:48
  * Description  MiSport 登录工具类
  */
-@Slf4j
 public class MiSportLoginUtil {
+    private static final Logger log = LoggerFactory.getLogger(MiSportLoginUtil.class);
 
     public static MiSportDto login(String user, String password) {
         String url1 = "https://api-user.huami.com/registrations/+86" + user + "/tokens";
@@ -39,7 +40,7 @@ public class MiSportLoginUtil {
         try {
             code = getCode(location, "access");
         } catch (Exception e) {
-            log.error("MiSportLoginUtil --> 42 --> 登录失败！");
+            log.error("MiSportLoginUtil --> 登录失败！");
 
             MiSportDto miSportDto = new MiSportDto();
             miSportDto.setLoginToken("0");
@@ -69,7 +70,7 @@ public class MiSportLoginUtil {
             miSportDto.setUserId(userId);
             return miSportDto;
         }
-        log.error("MiSportLoginUtil --> 72 --> 登录失败！");
+        log.error("MiSportLoginUtil --> 登录失败！");
         MiSportDto miSportDto = new MiSportDto();
         miSportDto.setLoginToken("0");
         miSportDto.setUserId("0");
@@ -129,7 +130,7 @@ public class MiSportLoginUtil {
                 result += line;
             }
         } catch (Exception e) {
-            log.error("MiSportLoginUtil --> 132 --> Exception e: " + e);
+            log.error("MiSportLoginUtil --> Exception e: " + e);
         }
         // 使用finally块来关闭输出流、输入流
         finally {
@@ -179,10 +180,10 @@ public class MiSportLoginUtil {
             out.flush();
             // 定义 BufferedReader 输入流来读取 URL 的响应
             in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
-            log.info("MiSportLoginUtil --> 182 --> conn: " + conn.getURL());
+            log.info("MiSportLoginUtil --> conn: " + conn.getURL());
             result = conn.getURL().toString();
         } catch (Exception e) {
-            log.error("MiSportLoginUtil --> 185 --> Exception e: " + e);
+            log.error("MiSportLoginUtil --> Exception e: " + e);
         }
         // 使用finally块来关闭输出流、输入流
         finally {
@@ -238,7 +239,7 @@ public class MiSportLoginUtil {
                 result += line;
             }
         } catch (Exception e) {
-            log.error("MiSportLoginUtil --> 241 --> 发送GET请求出现异常！" + e);
+            log.error("MiSportLoginUtil --> 发送GET请求出现异常！" + e);
         }
         // 使用finally块来关闭输入流
         finally {
@@ -259,32 +260,8 @@ public class MiSportLoginUtil {
         JSONObject jsonObject = JSON.parseObject(result);
         JSONObject tokenInfo = jsonObject.getJSONObject("token_info");
         String app_token = tokenInfo.getString("app_token");
-        log.info("MiSportLoginUtil --> 262 --> app_token获取成功: " + app_token);
+        log.info("MiSportLoginUtil --> app_token获取成功: " + app_token);
         return app_token;
-    }
-
-    public static String readTxt() {
-        try {
-            String encoding = "GBK";
-            File file = new File("/docker/data_json.txt");
-            if (file.isFile() && file.exists()) { // 判断文件是否存在
-                InputStreamReader read = new InputStreamReader(
-                        new FileInputStream(file), encoding);// 考虑到编码格式
-                BufferedReader bufferedReader = new BufferedReader(read);
-                String lineTxt = null;
-                while ((lineTxt = bufferedReader.readLine()) != null) {
-                    log.info("MiSportLoginUtil --> 276 --> lineTxt: " + lineTxt);
-                    return lineTxt;
-                }
-                read.close();
-            } else {
-                log.error("MiSportLoginUtil --> 281 --> 找不到指定的文件(data_json.txt)");
-                return "";
-            }
-        } catch (Exception e) {
-            log.error("MiSportLoginUtil --> 285 --> 读取文件内容出错(data_json.txt)");
-        }
-        return "";
     }
 
     public static String sendPostAndToken(String url, Map<String, ?> paramMap, String appToken) {
@@ -328,7 +305,7 @@ public class MiSportLoginUtil {
                 result += line;
             }
         } catch (Exception e) {
-            log.error("MiSportLoginUtil --> 331 --> Exception e: " + e);
+            log.error("MiSportLoginUtil --> Exception e: " + e);
         }
         // 使用finally块来关闭输出流、输入流
         finally {

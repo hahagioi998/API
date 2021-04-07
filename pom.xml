@@ -50,12 +50,6 @@
             <artifactId>springfox-swagger-ui</artifactId>
             <version>2.9.2</version>
         </dependency>
-        <!-- lombok 用来简化实体类：需要安装 lombok 插件 -->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <scope>provided</scope>
-        </dependency>
         <!-- fastjson -->
         <dependency>
             <groupId>com.alibaba</groupId>

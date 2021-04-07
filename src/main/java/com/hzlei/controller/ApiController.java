@@ -2,7 +2,6 @@ package com.hzlei.controller;
 
 import com.hzlei.service.MiSportService;
 import com.hzlei.utils.R;
-import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +18,10 @@ import java.util.Map;
  * @date 2021/03/17 13:30
  * Description  api
  */
-@Slf4j
 @RestController
 @RequestMapping("/api/")
 public class ApiController {
+    private static final Logger log = LoggerFactory.getLogger(ApiController.class);
 
     @Autowired
     private MiSportService miSport;
