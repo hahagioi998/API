@@ -1,7 +1,7 @@
 package com.hzlei.controller;
 
 import com.hzlei.service.MiSportService;
-import com.hzlei.utils.R;
+import com.hzlei.utils.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,10 +36,10 @@ public class ApiController {
         return result;
     }
     @GetMapping("mi/{phone}/{password}/{stepNum}")
-    public R miSport(@PathVariable String phone, @PathVariable String password, @PathVariable String stepNum) {
+    public Result<String> miSport(@PathVariable String phone, @PathVariable String password, @PathVariable String stepNum) {
         log.info("/api/mi/{" + phone + "}/{" + password + "}/{" + stepNum + "}");
         String result = miSport.miSport(phone, password, stepNum);
-        return R.ok().data("tip", result);
+        return Result.success(result);
     }
 
 }
