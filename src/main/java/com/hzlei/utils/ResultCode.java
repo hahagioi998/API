@@ -10,11 +10,9 @@ public enum ResultCode {
     /**
      * 200 成功
      * 500 错误
-     * 250 异常
      */
     SUCCESS(200, "SUCCESS"),
-    ERROR(500, "ERROR"),
-    EXCEPTION(250, "EXCEPTION");
+    ERROR(500, "ERROR");
 
     private final int code;
     private final String desc;
