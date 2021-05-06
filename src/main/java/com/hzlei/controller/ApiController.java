@@ -1,15 +1,12 @@
 package com.hzlei.controller;
 
-import com.hzlei.service.MiSportService;
+import com.hzlei.entity.User;
+import com.hzlei.utils.MiSportService;
 import com.hzlei.utils.Result;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,13 +15,10 @@ import java.util.Map;
  * @date 2021/03/17 13:30
  * Description  api
  */
+@Slf4j
 @RestController
 @RequestMapping("/api/")
 public class ApiController {
-    private static final Logger log = LoggerFactory.getLogger(ApiController.class);
-
-    @Autowired
-    private MiSportService miSport;
 
     @GetMapping("temp/{data}")
     public Map<String, Object> temp(@PathVariable String data) {
@@ -38,8 +32,14 @@ public class ApiController {
     @GetMapping("mi/{phone}/{password}/{stepNum}")
     public Result<String> miSport(@PathVariable String phone, @PathVariable String password, @PathVariable String stepNum) {
         log.info("/api/mi/{" + phone + "}/{" + password + "}/{" + stepNum + "}");
-        String result = miSport.miSport(phone, password, stepNum);
+        String result = MiSportService.miSport(phone, password, stepNum);
         return Result.success(result);
+    }
+
+    @PostMapping("addUser")
+    public Result<User> addUser(@RequestBody @Valid User user) {
+        log.info(user.toString());
+        return Result.success("添加成功", user);
     }
 
 }
